@@ -18,7 +18,7 @@ if "semester" not in st.session_state:
     st.session_state.semester = 5
 
 if "subject" not in st.session_state:
-    st.session_state.semester = "Analysis of Algorithms"
+    st.session_state.subject = "Analysis of Algorithms"
 
 if "unit" not in st.session_state:
     st.session_state.unit = 2
@@ -66,8 +66,12 @@ if query:
     }
     
     with st.chat_message("assistant"):
-        placeholder = st.empty()
-        streamed_text = ""
+        stage_placeholder = st.empty()
+        answer_placeholder = st.empty()
+        
+        current_stage = ""
+        streamed_answer = ""
+        
         try:
             with requests.post(
                 BACKEND_URL,
@@ -77,13 +81,28 @@ if query:
             ) as response:
                 response.raise_for_status()
                 
-                for chunk in response.iter_content(decode_unicode = True):
-                    if chunk:
-                        streamed_text += chunk
-                        placeholder.markdown(streamed_text, unsafe_allow_html = True)
+                for line in response.iter_lines(decode_unicode = True):
+                    if not line:
+                        continue
+                    if line.startswith("event:"):
+                        event_type = line.replace("event:", "").strip()
+                    elif line.startswith("data:"):
+                        data = line.replace("data:", "")
+                        
+                        if event_type == "stage":
+                            current_stage = data
+                            stage_placeholder.markdown(f"⏳ **{current_stage}**")
+                        elif event_type == "token":
+                            streamed_answer += data
+                            answer_placeholder.markdown(streamed_answer, unsafe_allow_html = True)
+                        elif event_type == "error":
+                            answer_placeholder.markdown(f"❌ {data}")
+                        elif event_type == "done":
+                            break
+                    
         except Exception as e:
-            streamed_text = f"❌ Backend error: {e}"
-            placeholder.markdown(streamed_text)
+            streamed_answer = f"❌ Backend error: {e}"
+            answer_placeholder.markdown(streamed_answer)
     
     st.session_state.chat_history.append({
         "role": "user",
@@ -91,6 +110,6 @@ if query:
     })
     st.session_state.chat_history.append({
         "role": "assistant",
-        "content": streamed_text
+        "content": streamed_answer
     })
 
