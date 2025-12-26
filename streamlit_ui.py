@@ -9,6 +9,9 @@ with open("semester_subjects.json", "r", encoding = "utf-8") as f:
 
 with open("subjects_mapping.json", "r", encoding = "utf-8") as f:
     subjects_mapping = json.load(f)
+    
+with open("subjects_units.json", "r", encoding = "utf-8") as f:
+    subjects_units = json.load(f)
 
 
 if "chat_history" not in st.session_state:
@@ -28,7 +31,7 @@ st.sidebar.title("📚 Course Selection")
 
 semester = st.sidebar.selectbox("Select Semester", options = list(semester_subjects.keys()))
 subject = st.sidebar.selectbox("Select Subject", options = semester_subjects[semester])
-unit = st.sidebar.selectbox("Select Unit", options = [2, 3, 4, 5, 6, 7])
+unit = st.sidebar.selectbox("Select Unit", options = subjects_units[subjects_mapping[subject]])
 
 st.session_state.semester = semester
 st.session_state.subject = subject
