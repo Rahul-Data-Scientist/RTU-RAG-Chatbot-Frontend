@@ -1,0 +1,5 @@
+fvenv/
+.git/
+__pycache__/
+*.pyc
+rough.py

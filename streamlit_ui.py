@@ -2,7 +2,7 @@ import streamlit as st
 import json
 import requests
 
-BACKEND_URL = "http://localhost:8000/rag/query"
+BACKEND_URL = "http://98.92.117.109:8000/rag/query"
 
 with open("semester_subjects.json", "r", encoding = "utf-8") as f:
     semester_subjects = json.load(f)
