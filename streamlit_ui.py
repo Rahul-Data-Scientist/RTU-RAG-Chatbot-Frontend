@@ -45,7 +45,7 @@ st.sidebar.markdown(f"""
 - **Unit:** {st.session_state.unit}
 """)
 
-st.title("📘 RAG Query Chatbot")
+st.header("📘 Syllabus-Aware AI Tutor (RAG-Powered)")
 
 # Display chat history
 for msg in st.session_state.chat_history:
