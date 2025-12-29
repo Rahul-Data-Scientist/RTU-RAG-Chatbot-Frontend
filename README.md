@@ -36,20 +36,17 @@ root/
 
 ```mermaid
 flowchart LR
-    A[User in Browser] --> B[Streamlit UI (streamlit_ui.py)]
-    B --> C[Select Semester, Subject, Unit]
-    B --> D[Send Query to Backend (/rag/query)]
-    D --> E[RAG Backend (FastAPI)]
-    E --> F[Query Rewrite → Filtered Retrieval from Qdrant]
-    F --> G[Relevant Chunks → Context Construction]
-    G --> H[Streaming LLM Response (GPT-4.1-nano)]
-    H --> I[Stream Response Back to Streamlit UI]
-    I --> A[Display Streaming Answer to User]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style D fill:#bfb,stroke:#333,stroke-width:2px
-    style H fill:#ffb,stroke:#333,stroke-width:2px
+    A[User in Browser]:::nodeStyle --> B[Streamlit UI]:::nodeStyle
+    B --> C[Select Semester, Subject, Unit]:::nodeStyle
+    B --> D[Send Query to Backend]:::nodeStyle
+    D --> E[RAG Backend]:::nodeStyle
+    E --> F[Query Rewrite & Filtered Retrieval from Qdrant]:::nodeStyle
+    F --> G[Relevant Chunks & Context Construction]:::nodeStyle
+    G --> H[Streaming LLM Response]:::nodeStyle
+    H --> I[Back to Streamlit UI]:::nodeStyle
+    I --> A[Display Answer]:::nodeStyle
+
+    classDef nodeStyle fill:#bbf,stroke:#333,stroke-width:2px,color:#000
 ```
 
 ---
@@ -68,7 +65,6 @@ flowchart LR
 5. User sees **real-time answer**, with chat history maintained.
 
 ---
-
 
 ## 📦 Dependencies
 
