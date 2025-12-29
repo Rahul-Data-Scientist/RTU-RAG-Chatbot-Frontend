@@ -3,3 +3,4 @@ fvenv/
 __pycache__/
 *.pyc
 rough.py
+README.md
