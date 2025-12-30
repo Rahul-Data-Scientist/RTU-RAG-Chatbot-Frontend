@@ -2,6 +2,12 @@ import streamlit as st
 import json
 import requests
 
+st.set_page_config(page_title="RTU RAG Chatbot")
+
+if "initialized" not in st.session_state:
+    st.session_state.initialized = True
+    st.session_state.chat_history = []
+
 BACKEND_URL = "http://98.92.117.109:8000/rag/query"
 
 with open("semester_subjects.json", "r", encoding = "utf-8") as f:
@@ -48,7 +54,7 @@ st.sidebar.markdown(f"""
 st.header("📘 Syllabus-Aware AI Tutor (RAG-Powered)")
 
 # Display chat history
-for msg in st.session_state.chat_history:
+for msg in st.session_state.get("chat_history", []):
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
