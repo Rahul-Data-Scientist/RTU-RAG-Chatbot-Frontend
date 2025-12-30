@@ -54,9 +54,4 @@ jobs:
               --restart always \
               -p 8501:8501 \
               --name rag-frontend \
-              -e STREAMLIT_SERVER_HEADLESS=true \
-              -e STREAMLIT_SERVER_ENABLECORS=false \
-              -e STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION=false \
-              -e STREAMLIT_SERVER_RUNON_SAVE=false \
-              -e STREAMLIT_SERVER_FILEWATCHERTYPE=none \
               698031349183.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest
