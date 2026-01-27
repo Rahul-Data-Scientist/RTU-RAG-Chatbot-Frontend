@@ -34,8 +34,8 @@ jobs:
       # Tag & push image to ECR
       - name: Push image to ECR
         run: |
-          docker tag rag-frontend:latest 698031349183.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest
-          docker push 698031349183.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest
+          docker tag rag-frontend:latest 090618481080.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest
+          docker push 090618481080.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest
 
       # Deploy on EC2
       - name: Deploy on EC2
@@ -45,13 +45,13 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 698031349183.dkr.ecr.us-east-1.amazonaws.com
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 090618481080.dkr.ecr.us-east-1.amazonaws.com
             docker stop rag-frontend || true
             docker rm rag-frontend || true
             docker system prune -a -f --volumes || true
-            docker pull 698031349183.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest
+            docker pull 090618481080.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest
             docker run -d \
               --restart always \
               -p 8501:8501 \
               --name rag-frontend \
-              698031349183.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest
+              090618481080.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest

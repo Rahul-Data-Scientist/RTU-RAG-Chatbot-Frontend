@@ -8,7 +8,7 @@ if "initialized" not in st.session_state:
     st.session_state.initialized = True
     st.session_state.chat_history = []
 
-BACKEND_URL = "http://98.92.117.109:8000/rag/query"
+BACKEND_URL = "http://44.200.122.223:8000/rag/query"
 
 with open("semester_subjects.json", "r", encoding = "utf-8") as f:
     semester_subjects = json.load(f)
