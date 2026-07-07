@@ -33,7 +33,7 @@ section[data-testid="stSidebar"] .stButton button[kind="secondary"].active-threa
 </style>
 """, unsafe_allow_html=True)
 
-BACKEND_BASE = "http://44.213.105.128:8000"
+BACKEND_BASE = "https://api.syllabusawarechatbot.space"
 
 RAG_URL = f"{BACKEND_BASE}/rag/query"
 THREADS_URL = f"{BACKEND_BASE}/threads"
