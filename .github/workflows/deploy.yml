@@ -52,6 +52,6 @@ jobs:
             docker pull 090618481080.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest
             docker run -d \
               --restart always \
-              -p 8501:8501 \
+              -p 127.0.0.1:8501:8501 \
               --name rag-frontend \
               090618481080.dkr.ecr.us-east-1.amazonaws.com/rag-frontend:latest
